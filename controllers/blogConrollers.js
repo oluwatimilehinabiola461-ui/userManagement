@@ -1,25 +1,24 @@
-import todoModel from "../models/todoModel.js";
+import blogModel from "../models/blogModel.js";
 
-// create a todo
-
-export const createTodo = async (req, res) => {
+// create a blog
+export const createBlog = async (req, res) => {
     try {
-        const todoData = new todoModel(req.body);
-        const savedTodo = await todoData.save();
-        if (!savedTodo) {
-            return res.status(400).json({
-                status: 'fail',
-                message: "Failed to create todo",
+        const blogData = new blogModel(req.body);
+        const savedBlog = await blogData.save()
+        if (!savedBlog) {
+            return status(404).json({
+                status: "fail",
+                message: "blog not found"
             });
         }
         res.status(200).json({
-            status: 'success',
-            data: {
-                savedTodo,
+            status: "success",
+            data : {
+                savedBlog
             }
         });
     } catch (error) {
-        console.error("Error creating todo:", error);
+        console.error("Error creating blog:", error);
         res.status(500).json({
             status: 'error',
             message: "Internal Server Error",
@@ -27,26 +26,26 @@ export const createTodo = async (req, res) => {
     }
 }
 
-    // get all todos
+// get all blog
 
-export const getAllTodos = async (req, res) => {
+export const getAllBlogs = async (req, res) => {
     try {
-        const todos = await todoModel.find();
-        if (todos.length <= 0) {
+        const blog = await blogModel.find();
+        if (blog.length <= 0) {
             return res.status(404).json({
                 status: 'fail',
-                message: "todos not found",
+                message: "blog not found",
             });
         }
         res.status(200).json({
             status: 'success',
-            count: todos.length,
+            count: blog.length,
             data: {
-                todos,
+                blog,
             }
         }); 
     } catch (error) {
-        console.error("Error fetching todos:", error);
+        console.error("Error fetching blog:", error);
         res.status(500).json({
             status: 'error',
             message: "Internal Server Error",
@@ -54,28 +53,28 @@ export const getAllTodos = async (req, res) => {
     }
 }
 
-// update a todo
+// update a blog
 
-export const updateTodo = async (req, res) => {
+export const updateBlog = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedTodo = await todoModel.findByIdAndUpdate(id, 
+        const updatedBlog = await blogModel.findByIdAndUpdate(id, 
             req.body, 
             { new: true });
-        if (!updatedTodo) {
+        if (!updatedBlog) {
             return res.status(404).json({
                 status: 'fail',
-                message: "Todo not found",
+                message: "blog not found",
             });
         }
         res.status(200).json({
             status: 'success',
             data: {
-                updatedTodo,
+                updatedBlog,
             }
         });
     } catch (error) {
-        console.error("Error updating todo:", error);
+        console.error("Error updating blog:", error);
         res.status(500).json({
             status: 'error',
             message: "Internal Server Error",
@@ -83,27 +82,29 @@ export const updateTodo = async (req, res) => {
     }
 }
 
-// delete a todo
+// delete a blog
 
-export const deleteTodo = async (req, res) => {
+export const deleteBlog = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedTodo = await todoModel.findByIdAndDelete(id);
-        if (!deletedTodo) {
+        const deletedBlog = await todoModel.findByIdAndDelete(id);
+        if (!deletedBlog) {
             return res.status(404).json({
                 status: 'fail',
-                message: "Todo not found",
+                message: "blog not found",
             });
         }
         res.status(200).json({
             status: 'success',
-            message: "Todo deleted successfully",
+            message: "blog deleted successfully",
         });
     } catch (error) {
-        console.error("Error deleting todo:", error);
+        console.error("Error deleting blog:", error);
         res.status(500).json({
             status: 'error',
             message: "Internal Server Error",
         });
     }
 }
+
+

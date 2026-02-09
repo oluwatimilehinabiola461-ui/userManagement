@@ -1,9 +1,9 @@
-import userModel from "../models/userModel.js";
+import userModel from "../models/userModels.js";
 
 
 // get all users
 export const getAllUsers = async (req, res) => {
- try {
+try {
         const users = await userModel.find();
         if (users.length <= 0) {
             return res.status(404).json({

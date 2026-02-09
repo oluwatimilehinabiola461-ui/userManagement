@@ -10,19 +10,22 @@
 // API to store contacts (name, phone, email) with CRUD operations.
 
 import express from 'express';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import mongoose from 'mongoose';
 import userRouter from './routes/userRoute.js';
 import todoRouter from './routes/todoRoute.js';
+import blogRouter from './routes/blogRoute.js'
 
-dotenv.config();
+
 const app = express();
 app.use(express.json());
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/todos', todoRouter);
+app.use('/api/v1/blogs', blogRouter)
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
-mongoose.connect()
+// mongoose.connect()
 
 
 
